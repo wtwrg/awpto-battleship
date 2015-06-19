@@ -21,22 +21,27 @@ public class App{
     board.showPlayerOneBoard();
     board.showPlayerOneBoard();
     Gameplay game = new Gameplay(board);
-    while (game.checkGame()) {
-      System.out.println("---- Round " + iterations + " ----");
-      do {
-        pointX = rand.nextInt(board.getWidth());
-        pointY = rand.nextInt(board.getWidth());
-      } while (!game.setHit(pointX, pointY, 1));
-      board.showPlayerOneBoard();
-      do {
-        pointX = rand.nextInt(board.getWidth());
-        pointY = rand.nextInt(board.getWidth());
-      } while (!game.setHit(pointX, pointY, 2));
-      board.showPlayerTwoBoard();
-      System.out.println();
-      iterations++;
+    if (game.areEqual(board.getPlayerOneBoard(), board.getPlayerTwoBoard()) 
+        || game.matrixIsSquare(board.getPlayerOneBoard())) {
+      while (game.checkGame()) {
+        System.out.println("---- Round " + iterations + " ----");
+        do {
+          pointX = rand.nextInt(board.getWidth());
+          pointY = rand.nextInt(board.getWidth());
+        } while (!game.setHit(pointX, pointY, 1));
+        board.showPlayerOneBoard();
+        do {
+          pointX = rand.nextInt(board.getWidth());
+          pointY = rand.nextInt(board.getWidth());
+        } while (!game.setHit(pointX, pointY, 2));
+        board.showPlayerTwoBoard();
+        System.out.println();
+        iterations++;
+      }
+              
+      System.out.println("Winner: " + game.whoWin());  
+    } else {
+      System.out.println("Nie mozna rozegrac gry.");
     }
-        
-    System.out.println("Winner: " + game.whoWin());
   }
 }
