@@ -101,7 +101,7 @@ public class AppTest{
 	@Test
 	public void gameIsFinished(){
 		// Arrange
-		Board board = new Board("filledmap.txt");
+		Board board = new Board("filledmaps.txt");
 		Gameplay game = new Gameplay(board);
 		
 		// Act 
@@ -131,7 +131,7 @@ public class AppTest{
 		Gameplay game = new Gameplay(board);
 		
 		//Act
-		boolean result = game.isHit(0, 8, 1);
+		boolean result = game.isHit(0, 7, 1);
 	
 		// Assert
 		Assert.assertFalse(result);
