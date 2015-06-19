@@ -22,7 +22,7 @@ public class App{
     board.showPlayerOneBoard();
     Gameplay game = new Gameplay(board);
     if (game.areEqual(board.getPlayerOneBoard(), board.getPlayerTwoBoard()) 
-        || game.matrixIsSquare(board.getPlayerOneBoard())) {
+        || game.isMatrix(board.getPlayerOneBoard())) {
       while (game.checkGame()) {
         System.out.println("---- Round " + iterations + " ----");
         do {

@@ -12,6 +12,7 @@ public class Gameplay {
   private final int bottomHit = 4;
   private boolean isHit;
   private Random rand;
+  public Gameplay(){}
   /**
    * Kontruktor klasy Gameplay.  
    * @param board obiekt klasy Board
@@ -39,7 +40,7 @@ public class Gameplay {
     return false;
   }
     
-  private boolean isHit(int pointX, int pointY, int board) {
+  public boolean isHit(int pointX, int pointY, int board) {
     if (board == this.playerOneBoard) {
       return (this.board.getPlayerOneBoard()[pointX][pointY] == '#') ? true : false;
     } else if (board == this.playerTwoBoard) {
@@ -125,7 +126,7 @@ public class Gameplay {
    * @param board wykorzystywana do pobrania dlugosci planszy
    * @return true albo false
    */
-  public boolean matrixIsSquare(char[][] board) {
+  public boolean isMatrix(char[][] board) {
     for (int i = 0; i < board.length; i++) {
       if (board.length != board[i].length) {
         return false; 

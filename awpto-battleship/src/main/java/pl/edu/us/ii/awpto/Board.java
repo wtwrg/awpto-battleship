@@ -15,6 +15,7 @@ public class Board {
   //wymiary map
   private int height;
   private int width;
+  public Board(){}
   /**
    * Konstruktor klasy Board.
    * 
