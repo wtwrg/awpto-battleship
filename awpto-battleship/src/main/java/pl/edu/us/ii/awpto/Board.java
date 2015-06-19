@@ -90,12 +90,19 @@ public class Board {
         return width;
     }
     public void showPlayerOneBoard(){
-        System.out.println("PLAYER ONE");
+        System.out.println("Player one");
         System.out.print("    ");
-        for(int i = 0; i < this.width; i++){ System.out.print(i + "   ");}
+        for(int i = 0; i < this.width; i++){ 
+            System.out.print(i + "   ");
+            
+        }
+        System.out.println();
+        for(int i = 0; i <= this.width; i++){ 
+            System.out.print("_" + "   ");
+        }
         System.out.println();
         for(int i = 0; i < this.height; i++){
-            System.out.print(i + (i >= 10 ? "  " : "   "));
+            System.out.print(i + (i >= 10 ? "| " : "|  "));
             for(int j = 0; j < this.width; j++){
                 System.out.print(this.playerOneBoard[i][j] + "   ");
             }
@@ -104,12 +111,18 @@ public class Board {
     }
     
     public void showPlayerTwoBoard(){
-        System.out.println("PLAYER TWO");
+        System.out.println("Player two");
         System.out.print("    ");
-        for(int i = 0; i < this.width; i++){ System.out.print(i + "   ");}
+        for(int i = 0; i < this.width; i++){ 
+            System.out.print(i + "   ");
+        }
+        System.out.println();
+        for(int i = 0; i <= this.width; i++){ 
+            System.out.print("_" + "   ");
+        }
         System.out.println();
         for(int i = 0; i < this.height; i++){
-            System.out.print(i + (i >= 10 ? "  " : "   "));
+            System.out.print(i + (i >= 10 ? "| " : "|  "));
             for(int j = 0; j < this.width; j++){
                 System.out.print(this.playerTwoBoard[i][j] + "   ");
             }
