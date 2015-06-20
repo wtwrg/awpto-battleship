@@ -6,49 +6,81 @@ import org.junit.Test;
 public class AppTest{
 	
 	@Test
-	public void boardsAreNotEmpty(){
+	public void boardsAreNotEmptyOne(){
 		// Arrange
 		Board board = new Board("maps.txt");
 		
 		// Act 
-		char[][] result1 = board.getPlayerOneBoard();
-		char[][] result2 = board.getPlayerTwoBoard();
+		char[][] result = board.getPlayerOneBoard();
+
 		// Assert
-		Assert.assertNotNull(result1);
-		Assert.assertNotNull(result2);
+		Assert.assertNotNull(result);
+	}
+
+	@Test
+	public void boardsAreNotEmptyTwo(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		
+		// Act 
+		char[][] result = board.getPlayerTwoBoard();
+
+		// Assert
+		Assert.assertNotNull(result);
 	}
 	
 	@Test
-	public void boardsAreEmpty(){
+	public void boardsAreEmptyOne(){
 		// Arrange
 		Board board = new Board();
 		
 		// Act
-		char[][] result1 = board.getPlayerOneBoard();
-		char[][] result2 = board.getPlayerTwoBoard();
+		char[][] result = board.getPlayerOneBoard();
 		
 		// Assert
-		Assert.assertNull(result1);
-		Assert.assertNull(result2);
+		Assert.assertNull(result);
 	}
+
+	@Test
+	public void boardsAreEmptyTwo(){
+		// Arrange
+		Board board = new Board();
+		
+		// Act
+		char[][] result = board.getPlayerTwoBoard();
+		
+		// Assert
+		Assert.assertNull(result);
+	}	
 	
 	@Test
-	public void boardsAreMartix(){
+	public void boardsOneIsMartix(){
 		// Arrange
 		Board board = new Board("maps.txt");
 		Gameplay game = new Gameplay(board);
 		
 		// Act
-		boolean result1 = game.isMatrix(board.getPlayerOneBoard());
-		boolean result2 = game.isMatrix(board.getPlayerTwoBoard());
+		boolean result = game.isMatrix(board.getPlayerOneBoard());
 		
 		// Assert
-		Assert.assertTrue(result1);
-		Assert.assertTrue(result2);
+		Assert.assertTrue(result);
+	}
+
+	@Test
+	public void boardsTwoIsMartix(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		boolean result = game.isMatrix(board.getPlayerTwoBoard());
+		
+		// Assert
+		Assert.assertTrue(result);
 	}
 	
 	@Test
-	public void boardAreNotMatrix(){
+	public void boardOneIsNotMatrix(){
 		// Arrange
 		Board board = new Board();
 		Gameplay game = new Gameplay(board);
@@ -57,6 +89,18 @@ public class AppTest{
 				{'#','#','#','~'},
 				{'x','o','x','x'}
 		};
+		
+		// Act
+		boolean result = game.isMatrix(playerOneBoard);
+		
+		Assert.assertFalse(result);
+	}
+
+	@Test
+	public void boardTwoIsNotMatrix(){
+		// Arrange
+		Board board = new Board();
+		Gameplay game = new Gameplay(board);
 		char[][] playerTwoBoard = {
 				{'~','~','~'},
 				{'#','x','x'},
@@ -65,11 +109,9 @@ public class AppTest{
 		};
 		
 		// Act
-		boolean result1 = game.isMatrix(playerOneBoard);
-		boolean result2 = game.isMatrix(playerTwoBoard);
-		
-		Assert.assertFalse(result1);
-		Assert.assertFalse(result2);
+		boolean result = game.isMatrix(playerTwoBoard);
+
+		Assert.assertFalse(result);
 	}
 	
 	@Test
@@ -137,4 +179,204 @@ public class AppTest{
 		Assert.assertFalse(result);
 	}
 	
+	@Test
+	public void fieldIsAvailable(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		//Act
+		boolean result = game.isAvailable(0, 6, 1);
+	
+		// Assert
+		Assert.assertTrue(result);
+	}
+	
+
+	@Test
+	public void fieldIsNotAvailable(){
+		// Arrange
+		Board board = new Board("filledmaps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		//Act
+		boolean result = game.isAvailable(0, 8, 1);
+	
+		// Assert
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void playerShootInsideOfBoard(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		boolean result = game.isInsideOfBoard(6, 8, 1);
+		
+		// Assert
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void playerShootOutsideOfBoard(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		boolean result = game.isInsideOfBoard(10, 32, 1);
+		
+		// Assert
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void whoWinTheGame(){
+		// Arrange
+		Board board = new Board("filledmaps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		String result = game.whoWin();
+		
+		// Assert
+		Assert.assertSame("PLAYER ONE", result);
+	}
+	
+	@Test
+	public void whoLooseTheGame(){
+		// Arrange
+		Board board = new Board("filledmaps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		String result = game.whoWin();
+		
+		// Assert
+		Assert.assertNotSame("PLAYER TWO", result);
+	}
+	
+	@Test
+	public void playerHitShip(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		game.setHit(0, 8, 1);
+		char result = board.getPlayerOneBoard()[0][8];
+		
+		// Assert
+		Assert.assertSame('o', result);	
+	}
+	
+	@Test
+	public void playerHitShipCheckReturn(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		boolean result = game.setHit(0, 8, 1); 
+		
+		// Assert
+		Assert.assertTrue(result);
+	}
+	
+	@Test
+	public void playerNotHitShip(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		game.setHit(1, 6, 1);
+		char result = board.getPlayerOneBoard()[1][6];
+		
+		// Assert
+		Assert.assertSame('x', result);
+		
+	}
+	
+	@Test
+	public void playerNotHitShipCheckReturn(){
+		// Arrange
+		Board board = new Board("filledmaps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act 
+		boolean result = game.setHit(0, 8, 1); 
+		
+		// Assert
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void boardHaveTheSameNumberOfShips() {
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		boolean result = game.numberOfShipsIsEqual();
+		
+		// Assert
+		Assert.assertTrue(result);
+	}
+	@Test
+	public void boardHaveNotTheSameNumberOfShips() {
+		// Arrange
+		Board board = new Board("filledmaps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		boolean result = game.numberOfShipsIsEqual();
+		
+		// Assert
+		Assert.assertFalse(result);
+	}
+	
+	@Test
+	public void checkPerformanceOfNextMove(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		game.setHit(4, 7, 1);
+		int result = 0;
+		for (int i = 0; i < board.getHeight(); i++) {
+		  for (int j = 0; j < board.getWidth(); j++) {
+		    if ((board.getPlayerOneBoard()[i][j] == 'o') || (board.getPlayerOneBoard()[i][j] == 'x')) {
+		    	result++;
+		    }
+		  }
+		}
+		
+		// Assert
+		Assert.assertTrue(result > 2);
+	}
+	
+	@Test
+	public void checkNotPerformanceOfNextMove(){
+		// Arrange
+		Board board = new Board("maps.txt");
+		Gameplay game = new Gameplay(board);
+		
+		// Act
+		game.setHit(0, 7, 1);
+		int result = 0;
+		for (int i = 0; i < board.getHeight(); i++) {
+		  for (int j = 0; j < board.getWidth(); j++) {
+		    if ((board.getPlayerOneBoard()[i][j] == 'o') || (board.getPlayerOneBoard()[i][j] == 'x')) {
+		    	result++;
+		    }
+		  }
+		}
+		
+		// Assert
+		Assert.assertTrue(result == 1);
+	}
 }

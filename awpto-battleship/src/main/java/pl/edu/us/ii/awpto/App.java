@@ -22,7 +22,7 @@ public class App{
     board.showPlayerOneBoard();
     Gameplay game = new Gameplay(board);
     if (game.areEqual(board.getPlayerOneBoard(), board.getPlayerTwoBoard()) 
-        || game.isMatrix(board.getPlayerOneBoard())) {
+        || game.isMatrix(board.getPlayerOneBoard()) || game.numberOfShipsIsEqual()) {
       while (game.checkGame()) {
         System.out.println("---- Round " + iterations + " ----");
         do {

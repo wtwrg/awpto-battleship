@@ -204,5 +204,24 @@ public class Gameplay {
   public boolean getIsHit() {
     return this.isHit;
   }
+  /**
+   * Sprawdza czy statki sie zgadzaja.
+   * @return true albo false
+   */
+  public boolean numberOfShipsIsEqual() {
+	int playerOne = 0;
+	int playerTwo = 0;
+	for(int i = 0; i < this.board.getHeight(); i++){
+	  for(int j = 0; j < this.board.getWidth(); j++){
+		if(this.board.getPlayerOneBoard()[i][j] == '#') {
+		  playerOne++;
+		}
+		if(this.board.getPlayerTwoBoard()[i][j] == '#') {
+		  playerTwo++;
+		}
+      }
+	}
+	return (playerOne == playerTwo ? true : false);
+  }
 
 }
